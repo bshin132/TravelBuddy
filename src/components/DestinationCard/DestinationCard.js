@@ -16,6 +16,9 @@ const Container = styled.div`
   background-repeat: no-repeat;
   background-image: url(${({background}) => background});
   cursor:pointer;
+  box-shadow: 1px 15px 63px -16px rgba(0,0,0,0.5);
+  -webkit-box-shadow: 1px 15px 63px -16px rgba(0,0,0,0.5);
+  -moz-box-shadow: 1px 15px 63px -16px rgba(0,0,0,0.5);
 `;
 
 const HeaderContainer = styled.div`

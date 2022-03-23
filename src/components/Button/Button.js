@@ -51,16 +51,3 @@ export default function Button({label, buttonWidth, buttonBackgroundColor, type}
     </Container>
   );
 }
-
-// export default function Button(props) {
-//   return (
-//     <Container
-//       style={{
-//         width: props.buttonWidth,
-//         backgroundColor: props.buttonBackgroundColor,
-//       }}
-//     >
-//       <Text>{props.label}</Text>
-//     </Container>
-//   );
-// }

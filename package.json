@@ -1,11 +1,16 @@
 {
   "name": "travel-buddy",
+  "type": "module",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^12.1.4",
     "@testing-library/user-event": "^13.5.0",
+    "chalk": "^5.0.1",
+    "dotenv": "^16.0.0",
+    "fs": "0.0.1-security",
+    "pg": "^8.7.3",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "5.0.0",
@@ -18,7 +23,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006 -s public",
-    "build-storybook": "build-storybook -s public"
+    "build-storybook": "build-storybook -s public",
+    "db:reset": "node bin/resetdb.js"
   },
   "eslintConfig": {
     "extends": [

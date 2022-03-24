@@ -5,6 +5,7 @@ import DestinationCard from './components/DestinationCard/DestinationCard';
 import Nav from './components/Nav/Nav';
 import InfoBanner from './components/InfoBanner/InfoBanner';
 import ItemBanner from './components/ItemBanner/ItemBanner';
+import Image from './components/Image/Image';
 import { faBookmark, faHouse } from '@fortawesome/free-solid-svg-icons';
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
       <Nav icon={faHouse} iconColor="#3E8F7D" label="Dashboard" fontWeight="bold" textColor="#3E8F7D"/>
       <InfoBanner />
       <ItemBanner icon={faBookmark} title="Camera"/>
+      <Image background="/whistler.jpg"/>
     </div>
   );
 }

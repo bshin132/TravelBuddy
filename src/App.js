@@ -6,6 +6,7 @@ import Nav from './components/Nav/Nav';
 import InfoBanner from './components/InfoBanner/InfoBanner';
 import ItemBanner from './components/ItemBanner/ItemBanner';
 import Image from './components/Image/Image';
+import Stop from './components/Stop/Stop';
 import { faBookmark, faHouse } from '@fortawesome/free-solid-svg-icons';
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
       <InfoBanner />
       <ItemBanner icon={faBookmark} title="Camera"/>
       <Image background="/whistler.jpg"/>
+      <Stop stop="Stop 1" description="Visit the wonderful land of whistler"/>
     </div>
   );
 }

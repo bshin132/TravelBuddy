@@ -1,9 +1,11 @@
+// load .env data into process.env
+require("dotenv").config();
+
 // other dependencies
-import fs from "fs";
-import chalk from "chalk";
-import pg from "pg";
-import dbParams from "../lib/db.js";
-const { Client } = pg; 
+const fs = require("fs");
+const chalk = require("chalk");
+const { Client } = require("pg");
+const dbParams = require("../lib/db.js");
 const db = new Client(dbParams);
 
 // PG connection setup

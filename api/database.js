@@ -25,23 +25,21 @@ const getUserById = function(userId) {
 
 exports.getUserById = getUserById;
 
-const getDestinationsByProvince = function(provinceName) {
+const getDestinationsByProvinceId = function(provinceId) {
   return db
   .query(`SELECT province_destinations.destination_id, destinations.name, destinations.wiki_name, destinations.google_place_id
           FROM province_destinations
           JOIN destinations ON province_destinations.destination_id = destinations.id
-          WHERE province_destinations.province_id = (SELECT provinces.id
-                                            FROM provinces
-                                            WHERE provinces.short_name = $1);`, [provinceName])
+          WHERE province_destinations.province_id = $1;`, [provinceId])
   .then((result) => {
     return result.rows;
   })
   .catch((err) => {
-    console.log('Error retrieving all destinations', err.message);
+    console.log('Error retrieving destinations by province id', err.message);
   });
 }
 
-exports.getDestinationsByProvince = getDestinationsByProvince;
+exports.getDestinationsByProvinceId = getDestinationsByProvinceId;
 
 const getDestinationById = function(destId) {
   return db
@@ -60,8 +58,10 @@ exports.getDestinationById = getDestinationById;
 
 const getAllDestinations = function() {
   return db
-    .query(`SELECT *
-            FROM destinations;`, [])
+    .query(`SELECT destinations.id, destinations.name, provinces.full_name AS province, provinces.short_name AS province_short, destinations.wiki_name, destinations.google_place_id
+            FROM destinations
+            JOIN province_destinations ON province_destinations.destination_id = destinations.id
+            JOIN provinces ON province_destinations.province_id = provinces.id;`, [])
     .then((result) => {
       return result.rows;
     })
@@ -72,11 +72,30 @@ const getAllDestinations = function() {
 
 exports.getAllDestinations = getAllDestinations;
 
+const getDestinationsByKeyword = function(keyword) {
+  return db
+    .query(`SELECT destinations.id, destinations.name, provinces.full_name AS province, provinces.short_name AS province_short, destinations.wiki_name, destinations.google_place_id
+            FROM destinations
+            JOIN province_destinations ON province_destinations.destination_id = destinations.id
+            JOIN provinces ON province_destinations.province_id = provinces.id
+            WHERE LOWER(destinations.name) LIKE $1;`, ['%'+keyword+'%'])
+    .then((result) => {
+      return result.rows;
+    })
+    .catch((err) => {
+      console.log('Error retrieving all destinations', err.message);
+    });
+}
+
+exports.getDestinationsByKeyword = getDestinationsByKeyword;
+
 const getFavoritesByUserId = function(userId) {
   return db
-    .query(`SELECT user_favorites.destination_id, destinations.name, destinations.wiki_name, destinations.google_place_id
+    .query(`SELECT destinations.id, destinations.name, provinces.full_name AS province, provinces.short_name AS province_short, destinations.wiki_name, destinations.google_place_id
             FROM user_favorites
             JOIN destinations ON user_favorites.destination_id = destinations.id
+            JOIN province_destinations ON province_destinations.destination_id = destinations.id
+            JOIN provinces ON province_destinations.province_id = provinces.id
             WHERE user_id = $1;`, [userId])
     .then((result) => {
       return result.rows;

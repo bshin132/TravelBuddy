@@ -1,24 +1,28 @@
 import React from "react";
 import styled from "styled-components";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
 const Container = styled.button`
   width: ${(props) => (props.type ? theme[props.type].buttonWidth : "120px")};
   height: ${(props) => (props.type ? theme[props.type].buttonHeight : "40px")};
-  background-color: ${(props) => props.type ? theme[props.type].default : "#3E8F7D"};
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  border: ${(props) => props.type ? theme[props.type].borderStyle : "none"};
-  border-radius: 10px;
-  cursor:pointer;
-  &:hover{
-    background-color: ${props => props.type ? theme[props.type].onHover : "#70A99C"};
+  background-color: ${(props) =>
+    props.type ? theme[props.type].default : "#3E8F7D"};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: ${(props) => (props.type ? theme[props.type].borderStyle : "none")};
+  border-radius: 7px;
+  cursor: pointer;
+  color: ${(props) => (props.type ? theme[props.type].textColor : "#000000")};
+  &:hover {
+    background-color: ${(props) =>
+      props.type ? theme[props.type].onHover : "#70A99C"};
   }
 `;
 
 const Text = styled.p`
-  font-size: 14px;
-  color: #000000;
+  font-size: 10px;
 `;
 
 const theme = {
@@ -26,19 +30,32 @@ const theme = {
     onHover: "#FFFFFF",
     default: "#FFFFFF",
     borderStyle: "none",
-    buttonWidth: "120px",
-    buttonHeight: "40px"
+    buttonWidth: "80px",
+    buttonHeight: "30px",
+    textColor: "#000000"
   },
   backButton: {
-    onHover: "#70A99C",
-    default: "#3E8F7D",
+    onHover: "#70a99c",
+    default: "#3e8f7d",
     borderStyle: "none",
-    buttonWidth: "80px",
-    buttonHeight: "30x"
-  }
+    buttonWidth: "70px",
+    buttonHeight: "30px",
+    textColor: "#FFFFFF"
+  },
 };
 
-export default function Button({label, buttonWidth, buttonBackgroundColor, type}) {
+const icons = {
+  arrowLeft: faArrowLeft,
+};
+
+export default function Button({
+  label,
+  buttonWidth,
+  buttonBackgroundColor,
+  type,
+  icon,
+}) {
+  const svg = icons[icon];
   return (
     <Container
       type={type}
@@ -47,6 +64,7 @@ export default function Button({label, buttonWidth, buttonBackgroundColor, type}
         backgroundColor: buttonBackgroundColor,
       }}
     >
+      {svg ? <FontAwesomeIcon icon={svg}/> : null}
       <Text>{label}</Text>
     </Container>
   );

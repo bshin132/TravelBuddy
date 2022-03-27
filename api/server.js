@@ -4,7 +4,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 const app = express();
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 8001;
 const database = require('../api/database');
 
 const axios = require('axios');
@@ -36,8 +36,8 @@ app.get("/api/province/:provinceId", (req, res) => {
   database.getDestinationsByProvinceId(req.params.provinceId).then((results) => {
     const maxheight = 300;
     const getPhotoReferences = results.map((obj) => {
-      let place_id = obj.google_place_id;
-       return axios.get(`https://maps.googleapis.com/maps/api/place/details/json?place_id=${place_id}&fields=photos&key=${process.env.MAPS_API_KEY}`).then((response) => {
+      const place_id = obj.google_place_id;
+      return axios.get(`https://maps.googleapis.com/maps/api/place/details/json?place_id=${place_id}&fields=photos&key=${process.env.MAPS_API_KEY}`).then((response) => {
         const photos = response.data.result.photos;
         let photo_reference;
         for (const photoObj of photos) {
@@ -69,8 +69,8 @@ app.get("/api/:user_id/favorites", (req, res) => {
   database.getFavoritesByUserId(req.params.user_id).then((results) => {
     const maxheight = 300;
     const getPhotoReferences = results.map((obj) => {
-      let place_id = obj.google_place_id;
-       return axios.get(`https://maps.googleapis.com/maps/api/place/details/json?place_id=${place_id}&fields=photos&key=${process.env.MAPS_API_KEY}`).then((response) => {
+      const place_id = obj.google_place_id;
+      return axios.get(`https://maps.googleapis.com/maps/api/place/details/json?place_id=${place_id}&fields=photos&key=${process.env.MAPS_API_KEY}`).then((response) => {
         const photos = response.data.result.photos;
         let photo_reference;
         for (const photoObj of photos) {
@@ -98,12 +98,36 @@ app.get("/api/:user_id/favorites", (req, res) => {
   });
 });
 
+app.get("/api/destinations/random", (req, res) => {
+  database.getRandomDestination().then((result) => {
+    const maxheight = 1080;
+    const place_id = result.google_place_id;
+    axios.get(`https://maps.googleapis.com/maps/api/place/details/json?place_id=${place_id}&fields=photos&key=${process.env.MAPS_API_KEY}`).then((response) => {
+      const photos = response.data.result.photos;
+      let photo_reference;
+      for (const photoObj of photos) {
+        if (photoObj.height >= maxheight && photoObj.height/photoObj.width <= 4/3) {
+          photo_reference = photoObj.photo_reference;
+          break;
+        }
+      }
+      axios.get(`https://maps.googleapis.com/maps/api/place/photo?photo_reference=${photo_reference}&maxheight=${maxheight}&key=${process.env.MAPS_API_KEY}`).then((respo) => {
+        const photoUrl = respo.request.res.responseUrl;
+        axios.get(`https://en.wikipedia.org/api/rest_v1/page/summary/${result.wiki_name}`).then((response) => {
+          const summary = response.data.extract;
+          res.json({...result, photo: photoUrl, description: summary});
+        });
+      });
+    });
+  });
+});
+
 app.get("/api/destinations/search/:keyword", (req, res) => {
   database.getDestinationsByKeyword(req.params.keyword).then((results) => {
     const maxheight = 300;
     const getPhotoReferences = results.map((obj) => {
-      let place_id = obj.google_place_id;
-       return axios.get(`https://maps.googleapis.com/maps/api/place/details/json?place_id=${place_id}&fields=photos&key=${process.env.MAPS_API_KEY}`).then((response) => {
+      const place_id = obj.google_place_id;
+      return axios.get(`https://maps.googleapis.com/maps/api/place/details/json?place_id=${place_id}&fields=photos&key=${process.env.MAPS_API_KEY}`).then((response) => {
         const photos = response.data.result.photos;
         let photo_reference;
         for (const photoObj of photos) {
@@ -135,8 +159,8 @@ app.get("/api/destinations", (req, res) => {
   database.getAllDestinations().then((results) => {
     const maxheight = 300;
     const getPhotoReferences = results.map((obj) => {
-      let place_id = obj.google_place_id;
-       return axios.get(`https://maps.googleapis.com/maps/api/place/details/json?place_id=${place_id}&fields=photos&key=${process.env.MAPS_API_KEY}`).then((response) => {
+      const place_id = obj.google_place_id;
+      return axios.get(`https://maps.googleapis.com/maps/api/place/details/json?place_id=${place_id}&fields=photos&key=${process.env.MAPS_API_KEY}`).then((response) => {
         const photos = response.data.result.photos;
         let photo_reference;
         for (const photoObj of photos) {

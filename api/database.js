@@ -89,6 +89,24 @@ const getDestinationsByKeyword = function(keyword) {
 
 exports.getDestinationsByKeyword = getDestinationsByKeyword;
 
+const getRandomDestination = function() {
+  return db
+    .query(`SELECT destinations.id, destinations.name, provinces.full_name AS province, provinces.short_name AS province_short, destinations.wiki_name, destinations.google_place_id
+            FROM destinations
+            JOIN province_destinations ON province_destinations.destination_id = destinations.id
+            JOIN provinces ON province_destinations.province_id = provinces.id
+            ORDER BY RANDOM()
+            LIMIT 1;`, [])
+    .then((result) => {
+      return result.rows[0];
+    })
+    .catch((err) => {
+      console.log('Error retrieving all destinations', err.message);
+    });
+}
+
+exports.getRandomDestination = getRandomDestination;
+
 const getFavoritesByUserId = function(userId) {
   return db
     .query(`SELECT destinations.id, destinations.name, provinces.full_name AS province, provinces.short_name AS province_short, destinations.wiki_name, destinations.google_place_id

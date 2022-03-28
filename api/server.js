@@ -65,8 +65,8 @@ app.get("/api/province/:provinceId", (req, res) => {
   });
 });
 
-app.get("/api/:user_id/favorites", (req, res) => {
-  database.getFavoritesByUserId(req.params.user_id).then((results) => {
+app.get("/api/user/:userId/favorites", (req, res) => {
+  database.getFavoritesByUserId(req.params.userId).then((results) => {
     const maxheight = 300;
     const getPhotoReferences = results.map((obj) => {
       const place_id = obj.google_place_id;
@@ -188,13 +188,50 @@ app.get("/api/destinations", (req, res) => {
   });
 });
 
-app.get("/api/destinations/:id/description", (req, res) => {
+app.get("/api/destinations/:id/details", (req, res) => {
+  let details = {};
+  const maxheight = 300;
+  const radius = 50000;
   database.getDestinationById(req.params.id).then((results) => {
-    axios.get(`https://en.wikipedia.org/api/rest_v1/page/summary/${results.wiki_name}`).then((response) => {
-      const title = response.data.title;
-      const summary = response.data.extract;
-      res.json({ title, summary });
+    axios.get(`https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&exsentences=5&redirects=1&titles=${results.wiki_name}`).then((respo) => {
+      const description = respo.data.query.pages[Object.keys(respo.data.query.pages)[0]].extract.replace(/[(]listen[)]/g,'');
+      axios.get(`https://maps.googleapis.com/maps/api/place/details/json?place_id=${results.google_place_id}&fields=geometry,photos,url,website&key=${process.env.MAPS_API_KEY}`).then((resp) => {
+        const location = resp.data.result.geometry.location;
+        const getPhotos = resp.data.result.photos.map((photoObj) => {
+          const photo_reference = photoObj.photo_reference;
+          return axios.get(`https://maps.googleapis.com/maps/api/place/photo?photo_reference=${photo_reference}&maxheight=${maxheight}&key=${process.env.MAPS_API_KEY}`).then((res) => {
+            return res.request.res.responseUrl;
+          });
+        });
+        Promise.all(getPhotos).then((response) => {
+          axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${location.lat},${location.lng}&type=tourist_attraction&radius=${radius}&key=${process.env.MAPS_API_KEY}`).then((nearbySearch) => {
+            const nearbyPlaces = nearbySearch.data.results.map((placeInfo) => {
+              let rtObj = {};
+              rtObj.name = placeInfo.name;
+              rtObj.location = placeInfo.geometry.location;
+              rtObj.place_id = placeInfo.place_id;
+              rtObj.rating = placeInfo.rating;
+              rtObj.address = placeInfo.vicinity;
+              return rtObj;
+            }).slice(0, 6);
+            details = {...results, description, location, photos: response, nearby_places: nearbyPlaces};
+            res.json(details);
+          });
+        });
+      });
     });
+  });
+});
+
+app.post("/api/user/:userId/favorites/:destinationId", (req, res) => {
+  database.addToUserFavorites(req.params.userId, req.params.destinationId).then((results) => {
+    res.json(results);
+  });
+});
+
+app.delete("/api/user/:userId/favorites/:destinationId", (req, res) => {
+  database.deleteFromUserFavorites(req.params.userId, req.params.destinationId).then((results) => {
+    res.json(results);
   });
 });
 

@@ -43,9 +43,11 @@ exports.getDestinationsByProvinceId = getDestinationsByProvinceId;
 
 const getDestinationById = function(destId) {
   return db
-    .query(`SELECT *
+    .query(`SELECT destinations.id, destinations.name, provinces.full_name AS province, provinces.short_name AS province_short, destinations.wiki_name, destinations.google_place_id
             FROM destinations
-            WHERE id = $1;`, [destId])
+            JOIN province_destinations ON province_destinations.destination_id = destinations.id
+            JOIN provinces ON province_destinations.province_id = provinces.id
+            WHERE destinations.id = $1;`, [destId])
     .then((result) => {
       return result.rows[0];
     })
@@ -124,6 +126,40 @@ const getFavoritesByUserId = function(userId) {
 }
 
 exports.getFavoritesByUserId = getFavoritesByUserId;
+
+const addToUserFavorites = function(userId, destinationId) {
+  return db
+    .query(`INSERT INTO user_favorites (user_id, destination_id)
+            VALUES ($1, $2)
+            RETURNING *;`, [userId, destinationId])
+    .then((result) => {
+      return result.rows[0];
+    })
+    .catch((err) => {
+      console.log('Error retrieving user favorites', err.message);
+    });
+}
+
+exports.addToUserFavorites = addToUserFavorites;
+
+const deleteFromUserFavorites = function(userId, destinationId) {
+  return db
+    .query(`DELETE FROM user_favorites
+            WHERE user_id = $1
+            AND destination_id = $2;`, [userId, destinationId])
+    .then((result) => {
+      if (result.rowCount === 0) {
+        return null;
+      } else {
+        return 1;
+      }
+    })
+    .catch((err) => {
+      console.log('Error retrieving user favorites', err.message);
+    });
+}
+
+exports.deleteFromUserFavorites = deleteFromUserFavorites;
 
 const getAllProvinces = function() {
   return db

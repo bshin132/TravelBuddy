@@ -22,7 +22,7 @@ const Container = styled.button`
 `;
 
 const Text = styled.p`
-  font-size: 10px;
+  font-size: 16px;
 `;
 
 const theme = {
@@ -30,8 +30,8 @@ const theme = {
     onHover: "#FFFFFF",
     default: "#FFFFFF",
     borderStyle: "none",
-    buttonWidth: "80px",
-    buttonHeight: "30px",
+    buttonWidth: "170px",
+    buttonHeight: "50px",
     textColor: "#000000"
   },
   backButton: {

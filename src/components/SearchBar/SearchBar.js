@@ -11,8 +11,8 @@ const Container = styled.div`
 `;
 
 const Input = styled.input`
-  width: 400px;
-  height: 25px;
+  width: 600px;
+  height: 30px;
   border: none;
   border-radius: 7px;
   font-size: 12px;

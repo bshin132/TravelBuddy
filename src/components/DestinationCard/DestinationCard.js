@@ -8,8 +8,8 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  width: 170px;
-  height: 250px;
+  width: 200px;
+  height: 300px;
   border-radius: 15px;
   background-size: cover;
   background-position: center;

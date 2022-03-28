@@ -5,8 +5,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
 
 const Container = styled.div`
-  width: 300px;
-  height: 300px;
+  width: 90vw;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -18,39 +18,38 @@ const Container = styled.div`
   background-repeat: no-repeat;
 `;
 
-const TitleContainer = styled.div`
+const TitleContainer = styled.div``;
 
-`;
-
-const Title = styled.h2`
+const Title = styled.h1`
   color: #ffffff;
-  margin:0;
+  margin: 0;
+  font-size: 46px;
 `;
 
 const Subtitle = styled.p`
   color: #ffffff;
-  margin:0;
-  font-size:14px;
+  margin: 0;
+  font-size: 24px;
 `;
 
 const Description = styled.p`
   color: #ffffff;
-  font-size:10px;
-  width:230px;
+  font-size: 20px;
+  width: 50%;
 `;
 
 export default function RandomCard({
   title,
   background,
   subtitle,
-  description="Description goes here",
+  description = "Description goes here",
 }) {
   return (
     <Container background={background}>
       <TitleContainer>
         <Title>{title}</Title>
         <Subtitle>
-          <FontAwesomeIcon icon={faLocationDot} />
+          <FontAwesomeIcon icon={faLocationDot} className="icon" />
           {subtitle}
         </Subtitle>
       </TitleContainer>

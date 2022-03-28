@@ -1,18 +1,21 @@
 import React from "react";
 import styled from "styled-components";
-import './ItemBanner.css'
+import "./ItemBanner.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHouse, faHSquare } from "@fortawesome/free-solid-svg-icons";
 
 const Container = styled.div`
-  font-size: 14px;
-  color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  height: 40px;
+  color: #000000;
 `;
 
 export default function ItemBanner({ title, icon }) {
   return (
     <Container>
-      <FontAwesomeIcon icon={icon} className="icon"/>
+      <FontAwesomeIcon icon={icon} className="icon" />
       {title}
     </Container>
   );

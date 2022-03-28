@@ -2,8 +2,9 @@ import React from "react";
 import styled from "styled-components";
 
 const Container = styled.button`
+  margin-left:5px;
   width: 80px;
-  height: 30px;
+  height: 35px;
   background-color: ${(props) =>
     props.type ? theme[props.type].default : "#3E8F7D"};
   display: flex;
@@ -11,7 +12,7 @@ const Container = styled.button`
   align-items: center;
   color: ${(props) => (props.type ? theme[props.type].textColor : "#FFFFFF")};
   border: ${(props) => (props.type ? theme[props.type].borderStyle : "none")};
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
   &:hover {
     background-color: ${(props) =>
@@ -36,7 +37,7 @@ const theme = {
   notActive: {
     onHover: "#3E8F7D",
     default: "#FFFFFF",
-    textColor: "#ffffff",
+    textColor:"#3E8F7D",
     borderStyle: "2px solid #3E8F7D",
     hoverTextColor: "#FFFFFF",
   },

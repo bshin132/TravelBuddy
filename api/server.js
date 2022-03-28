@@ -212,6 +212,7 @@ app.get("/api/destinations/:id/details", (req, res) => {
               rtObj.place_id = placeInfo.place_id;
               rtObj.rating = placeInfo.rating;
               rtObj.address = placeInfo.vicinity;
+              rtObj.url = `https://www.google.com/maps/search/?api=1&query=Google&query_place_id=${placeInfo.place_id}`;
               return rtObj;
             }).slice(0, 6);
             details = {...results, description, location, photos: response, nearby_places: nearbyPlaces};

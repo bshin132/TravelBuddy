@@ -34,3 +34,9 @@ CREATE TABLE user_favorites (
   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
   destination_id INTEGER REFERENCES destinations(id) ON DELETE CASCADE
 );
+
+CREATE TABLE things_to_bring (
+  id SERIAL PRIMARY KEY NOT NULL, 
+  destination_id INTEGER REFERENCES destinations(id) ON DELETE CASCADE, 
+  thing VARCHAR(255) NOT NULL
+);

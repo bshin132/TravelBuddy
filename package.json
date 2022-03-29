@@ -31,7 +31,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "db:reset": "node bin/resetdb.js",
-    "api": "node api/server.js"
+    "api": "node api/server.js",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -72,6 +72,6 @@
   },
   "devDependencies": {
     "webpack": "^5.70.0"
-  }, 
+  },
   "proxy": "http://localhost:8001"
 }

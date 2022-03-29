@@ -1,4 +1,4 @@
-import "./App.css";
+import "./App.scss";
 import Button from "./components/Button/Button";
 import SearchBar from "./components/SearchBar/SearchBar";
 import DestinationCard from "./components/DestinationCard/DestinationCard";

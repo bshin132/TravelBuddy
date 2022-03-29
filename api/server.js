@@ -215,8 +215,10 @@ app.get("/api/destinations/:id/details", (req, res) => {
               rtObj.url = `https://www.google.com/maps/search/?api=1&query=Google&query_place_id=${placeInfo.place_id}`;
               return rtObj;
             }).slice(0, 6);
-            details = {...results, description, location, photos: response, nearby_places: nearbyPlaces};
-            res.json(details);
+            database.getPackingListByDestinationId(req.params.id).then((packingList) => {
+              details = {...results, description, location, photos: response, nearby_places: nearbyPlaces, packing_list: packingList};
+              res.json(details);
+            });
           });
         });
       });

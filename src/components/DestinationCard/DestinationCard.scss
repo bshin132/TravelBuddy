@@ -1,0 +1,15 @@
+.heart-icon {
+  position: relative;
+  margin-bottom: 210px;
+  margin-left: 150px;
+  cursor: pointer;
+}
+
+.card {
+  width: 100%;
+  @media screen and (min-width:720px) {
+    width:17%;
+  }
+  margin: 10px;
+  box-sizing: border-box;
+}

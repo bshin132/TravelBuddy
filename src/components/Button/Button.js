@@ -54,11 +54,13 @@ export default function Button({
   buttonBackgroundColor,
   type,
   icon,
+  onClick
 }) {
   const svg = icons[icon];
   return (
     <Container
       type={type}
+      onClick={onClick}
       style={{
         width: buttonWidth,
         backgroundColor: buttonBackgroundColor,

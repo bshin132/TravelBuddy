@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import "./ItemBanner.css";
+import "./ItemBanner.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Container = styled.div`

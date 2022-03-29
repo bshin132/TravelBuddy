@@ -57,7 +57,7 @@ export default function Homepage({}) {
   const [province, setProvince] = useState("");
 
   useEffect(() => {
-    axios.get(`/api/destinations`).then((res) => {
+    axios.get(`/api/destinations/`).then((res) => {
       setDestinations(res.data);
     });
   }, []);

@@ -194,7 +194,7 @@ app.get("/api/destinations/:id/details", (req, res) => {
   const radius = 50000;
   database.getDestinationById(req.params.id).then((results) => {
     axios.get(`https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&exsentences=5&redirects=1&titles=${results.wiki_name}`).then((respo) => {
-      const description = respo.data.query.pages[Object.keys(respo.data.query.pages)[0]].extract.replace(/[(]listen[)]/g,'');
+      const description = respo.data.query.pages[Object.keys(respo.data.query.pages)[0]].extract.replace(/\(listen\)/g,'').replace(/\(\)/g,'').replace(/\(\s\)/g,'').replace(/\(pronounced\s\)/g, '').replace(/\(\s/g, '(').replace(/\s\)/g, ')').replace(/\(;\s/g, '(');
       axios.get(`https://maps.googleapis.com/maps/api/place/details/json?place_id=${results.google_place_id}&fields=geometry,photos,url,website&key=${process.env.MAPS_API_KEY}`).then((resp) => {
         const location = resp.data.result.geometry.location;
         const getPhotos = resp.data.result.photos.map((photoObj) => {

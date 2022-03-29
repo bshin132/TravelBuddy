@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import Button from "../../components/Button/Button";
 import NavBar from "../../components/NavBar/NavBar";
 import ImageSection from "../../components/ImageSection/ImageSection";
@@ -7,6 +7,9 @@ import InfoBanner from "../../components/InfoBanner/InfoBanner";
 import ImageHeader from "../../components/ImageHeader/ImageHeader";
 import Map from "../../components/Map/Map";
 import styled from "styled-components";
+import Logo from "../../components/Logo/Logo";
+import axios from "axios";
+import { Link } from "react-router-dom";
 
 const MainContainer = styled.div`
   display: flex;
@@ -17,10 +20,6 @@ const NavContainer = styled.div`
   flex-direction: column;
   align-items: flex-start;
   padding-left: 25px;
-`;
-
-const Logo = styled.div`
-  padding: 20px 0 0 15px;
 `;
 
 const MainContent = styled.div`
@@ -35,7 +34,7 @@ const HeaderContainer = styled.div`
 `;
 
 const Main = styled.div`
-  width: 100%;
+  width: 97%;
   height: 87%;
   background-color: white;
   border-radius: 10px;
@@ -44,7 +43,7 @@ const Main = styled.div`
   flex-direction: column;
   flex-wrap: break;
   align-items: center;
-  padding-bottom:40px;
+  padding-bottom: 40px;
 `;
 
 const ImageContainer = styled.div`
@@ -70,15 +69,15 @@ export default function Details({}) {
   return (
     <MainContainer>
       <NavContainer>
-        <Logo>
-          <div>LOGO</div>
-        </Logo>
+        <Logo />
         <NavBar />
       </NavContainer>
 
       <MainContent>
         <HeaderContainer>
-          <Button icon="arrowLeft" type="backButton" />
+          <Link to="/">
+            <Button icon="arrowLeft" type="backButton" />
+          </Link>
         </HeaderContainer>
 
         <Main>
@@ -87,7 +86,7 @@ export default function Details({}) {
             destination="Whistler"
             province="British Columbia"
           />
-          
+
           <DescriptionContainer>
             Lorem Ipsum is simply dummy text of the printing and typesetting
             industry. Lorem Ipsum has been the industry's standard dummy text

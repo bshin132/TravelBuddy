@@ -4,9 +4,8 @@ import NavBar from "../../components/NavBar/NavBar";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import FilterButton from "../../components/FilterButton/FilterButton";
 import styled from "styled-components";
-import { faMap, faHouse, faHeart } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
-import RandomCard from "../../components/RandomCard/RandomCard";
+import Logo from "../../components/Logo/Logo";
 
 const MainContainer = styled.div`
   display: flex;
@@ -16,12 +15,7 @@ const NavContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  justify-content: space-evenly;
   padding-left: 25px;
-`;
-
-const Logo = styled.div`
-  padding: 20px 0 0 15px;
 `;
 
 const MainContent = styled.div`
@@ -129,9 +123,7 @@ export default function Homepage({}) {
     <MainContainer>
 
       <NavContainer>
-        <Logo>
-          <div>LOGO</div>
-        </Logo>
+        <Logo />
         <NavBar />
       </NavContainer>
 

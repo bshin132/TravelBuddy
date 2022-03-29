@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Container = styled.div`
   width: 100%;
-  height:200px;
+  height: 160px;
   cursor: pointer;
 `;
 
@@ -15,7 +15,14 @@ const Label = styled.p`
   font-size: 14px;
 `;
 
-export default function Nav({ icon, label, textColor, fontWeight, iconColor, to }) {
+export default function Nav({
+  icon,
+  label,
+  textColor,
+  fontWeight,
+  iconColor,
+  to,
+}) {
   return (
     <Container>
       <Link to={to}>

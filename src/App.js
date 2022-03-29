@@ -1,19 +1,7 @@
 import "./App.scss";
-import Button from "./components/Button/Button";
-import SearchBar from "./components/SearchBar/SearchBar";
-import DestinationCard from "./components/DestinationCard/DestinationCard";
-import Nav from "./components/Nav/Nav";
-import InfoBanner from "./components/InfoBanner/InfoBanner";
-import ItemBanner from "./components/ItemBanner/ItemBanner";
-import Image from "./components/Image/Image";
-import Stop from "./components/Stop/Stop";
-import FilterButton from "./components/FilterButton/FilterButton";
-import RandomCard from "./components/RandomCard/RandomCard";
 import Homepage from "./pages/Homepage/Homepage";
 import Details from "./pages/Details/Details";
 import Random from "./pages/Random/Random";
-import NavBar from "./components/NavBar/NavBar";
-import { render } from "react-dom";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 

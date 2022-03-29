@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
-  width: 88vw;
+  width: 85vw;
   height: 450px;
   border-radius: 7px;
   background-image: url(${({ background }) => background});

@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Button from "../Button/Button";
-import './RandomCard.scss';
+import "./RandomCard.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
 
@@ -39,23 +39,33 @@ const Description = styled.p`
   width: 50%;
 `;
 
-export default function RandomCard({
-  title,
-  background,
-  subtitle,
-  description = "Description goes here",
-}) {
+export default function RandomCard() {
+  const [destination, setDestination] = useState({});
+
+  const fetchData = () => {
+    fetch("/api/destinations/random")
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        setDestination(data);
+      })
+      .catch(() => {
+        setDestination("ERROR");
+      });
+  };
+
   return (
-    <Container background={background}>
+    <Container background={destination.photo}>
       <TitleContainer>
-        <Title>{title}</Title>
+        <Title>{destination.name}</Title>
         <Subtitle>
           <FontAwesomeIcon icon={faLocationDot} className="icon" />
-          {subtitle}
+          {destination.province}
         </Subtitle>
       </TitleContainer>
-      <Description>{description}</Description>
-      <Button label="Generate New" type="defaultButton" />
+      <Description>{destination.description}</Description>
+      <Button label="Generate New" type="defaultButton" onClick={fetchData} />
     </Container>
   );
 }

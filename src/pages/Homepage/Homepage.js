@@ -66,7 +66,7 @@ export default function Homepage({}) {
     setSearch(search);
     setProvince(province);
     return destinations.filter((destination) => {
-      if (search && !destination.name.includes(search)) {
+      if (search && !destination.name.toLowerCase().includes(search)) {
         return false;
       }
       if (province && !destination.province_short.includes(province)) {
@@ -134,7 +134,7 @@ export default function Homepage({}) {
             <SearchBar
               search={search}
               setSearch={(search) => {
-                setFilter(onFilter(search, province));
+                setFilter(onFilter(search.toLowerCase(), province));
               }}
             />
           </SearchContainer>

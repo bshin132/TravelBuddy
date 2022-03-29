@@ -1,13 +1,12 @@
 import React from "react";
 import Button from "../../components/Button/Button";
-import Nav from "../../components/Nav/Nav";
+import NavBar from "../../components/NavBar/NavBar";
 import ImageSection from "../../components/ImageSection/ImageSection";
 import Stop from "../../components/Stop/Stop";
 import InfoBanner from "../../components/InfoBanner/InfoBanner";
 import ImageHeader from "../../components/ImageHeader/ImageHeader";
 import Map from "../../components/Map/Map";
 import styled from "styled-components";
-import { faMap, faHouse, faHeart } from "@fortawesome/free-solid-svg-icons";
 
 const MainContainer = styled.div`
   display: flex;
@@ -18,13 +17,6 @@ const NavContainer = styled.div`
   flex-direction: column;
   align-items: flex-start;
   padding-left: 25px;
-`;
-
-const NavBar = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  height: 100vh;
 `;
 
 const Logo = styled.div`
@@ -81,29 +73,7 @@ export default function Details({}) {
         <Logo>
           <div>LOGO</div>
         </Logo>
-        <NavBar>
-          <Nav
-            icon={faHouse}
-            iconColor="#3E8F7D"
-            label="Dashboard"
-            fontWeight="bold"
-            textColor="#3E8F7D"
-          />
-          <Nav
-            icon={faMap}
-            iconColor="#3E8F7D"
-            label="Random"
-            fontWeight="bold"
-            textColor="#3E8F7D"
-          />
-          <Nav
-            icon={faHeart}
-            iconColor="#3E8F7D"
-            label="Favorites"
-            fontWeight="bold"
-            textColor="#3E8F7D"
-          />
-        </NavBar>
+        <NavBar />
       </NavContainer>
 
       <MainContent>

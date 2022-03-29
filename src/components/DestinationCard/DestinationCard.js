@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import './DestinationCard.css'
+import './DestinationCard.scss'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationDot, faHeart } from "@fortawesome/free-solid-svg-icons";
 
@@ -8,7 +8,6 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  width: 200px;
   height: 300px;
   border-radius: 15px;
   background-size: cover;
@@ -43,7 +42,7 @@ const Subtitle = styled.p`
 
 export default function DestinationCard({ background, title, subtitle }) {
   return (
-    <Container background={background}>
+    <Container background={background} className="card">
       <FontAwesomeIcon icon={faHeart} className="heart-icon"/>
       <HeaderContainer>
         <Title>{title}</Title>

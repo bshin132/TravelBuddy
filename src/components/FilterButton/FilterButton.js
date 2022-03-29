@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const Container = styled.button`
   margin-left:5px;
-  width: 80px;
+  min-width: 80px;
   height: 35px;
   background-color: ${(props) =>
     props.type ? theme[props.type].default : "#3E8F7D"};
@@ -43,9 +43,10 @@ const theme = {
   },
 };
 
-export default function FilterButton({ label, type }) {
+export default function FilterButton({ label, isActive, onClick }) {
+  const type = isActive ? "filterActive" : "notActive"
   return (
-    <Container type={type}>
+    <Container type={type} onClick={onClick}>
       <Text>{label}</Text>
     </Container>
   );

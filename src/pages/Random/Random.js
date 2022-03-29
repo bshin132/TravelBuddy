@@ -1,8 +1,7 @@
 import React from "react";
-import Nav from "../../components/Nav/Nav";
+import NavBar from "../../components/NavBar/NavBar";
 import RandomCard from "../../components/RandomCard/RandomCard";
 import styled from "styled-components";
-import { faMap, faHouse, faHeart } from "@fortawesome/free-solid-svg-icons";
 
 const MainContainer = styled.div`
   display: flex;
@@ -14,13 +13,6 @@ const NavContainer = styled.div`
   align-items: flex-start;
   justify-content: space-evenly;
   padding-left: 25px;
-`;
-
-const NavBar = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  height: 100vh;
 `;
 
 const Logo = styled.div`
@@ -39,29 +31,7 @@ export default function Random({}) {
         <Logo>
           <div>LOGO</div>
         </Logo>
-        <NavBar>
-          <Nav
-            icon={faHouse}
-            iconColor="#3E8F7D"
-            label="Dashboard"
-            fontWeight="bold"
-            textColor="#3E8F7D"
-          />
-          <Nav
-            icon={faMap}
-            iconColor="#3E8F7D"
-            label="Dashboard"
-            fontWeight="bold"
-            textColor="#3E8F7D"
-          />
-          <Nav
-            icon={faHeart}
-            iconColor="#3E8F7D"
-            label="Dashboard"
-            fontWeight="bold"
-            textColor="#3E8F7D"
-          />
-        </NavBar>
+        <NavBar />
       </NavContainer>
 
       <MainContent>

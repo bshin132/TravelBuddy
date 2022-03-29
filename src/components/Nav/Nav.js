@@ -1,9 +1,11 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Container = styled.div`
   width: 100%;
+  height:200px;
   cursor: pointer;
 `;
 
@@ -13,13 +15,15 @@ const Label = styled.p`
   font-size: 14px;
 `;
 
-export default function Nav({ icon, label, textColor, fontWeight, iconColor }) {
+export default function Nav({ icon, label, textColor, fontWeight, iconColor, to }) {
   return (
     <Container>
-      <FontAwesomeIcon icon={icon} color={iconColor} />
-      <Label style={{ color: textColor, fontWeight: fontWeight }}>
-        {label}
-      </Label>
+      <Link to={to}>
+        <FontAwesomeIcon icon={icon} color={iconColor} />
+        <Label style={{ color: textColor, fontWeight: fontWeight }}>
+          {label}
+        </Label>
+      </Link>
     </Container>
   );
 }

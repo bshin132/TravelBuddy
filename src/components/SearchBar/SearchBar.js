@@ -20,11 +20,11 @@ const Input = styled.input`
   padding-left:30px;
 `;
 
-export default function SearchBar() {
+export default function SearchBar({search, setSearch}) {
   return (
     <Container>
       <FontAwesomeIcon icon={faMagnifyingGlass} className="search-icon" />
-      <Input placeholder="Search for a destination..." />
+      <Input placeholder="Search for a destination..." search={search} onChange={event => setSearch(event.target.value)}/>
     </Container>
   );
 }

@@ -19,7 +19,7 @@ VALUES ('Ontario', 'ON'),
 ('Nunavut', 'NU');
 
 INSERT INTO destinations (name, wiki_name, google_place_id)
-VALUES ('Jasper', 'Jasper', 'ChIJKT5VaAgrg1MRgigZC70CIB8'), 
+VALUES ('Jasper', 'Jasper', 'ChIJKT5VaAgrg1MRgigZC70CIB8'),
 ('Banff', 'Banff, Alberta', 'ChIJ_UoMkUXKcFMRY5Ss2r6ur8o'), 
 ('Vancouver', 'Vancouver', 'ChIJs0-pQ_FzhlQRi_OBm-qWkbs'), 
 ('Lake Louise', 'Lake Louise, Alberta', 'ChIJEc7hoChdd1MR5rxlY3s8Nzw'), 

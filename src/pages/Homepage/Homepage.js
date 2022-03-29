@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import DestinationCard from "../../components/DestinationCard/DestinationCard";
-import Nav from "../../components/Nav/Nav";
+import NavBar from "../../components/NavBar/NavBar";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import FilterButton from "../../components/FilterButton/FilterButton";
 import styled from "styled-components";
 import { faMap, faHouse, faHeart } from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
+import RandomCard from "../../components/RandomCard/RandomCard";
 
 const MainContainer = styled.div`
   display: flex;
@@ -16,13 +18,6 @@ const NavContainer = styled.div`
   align-items: flex-start;
   justify-content: space-evenly;
   padding-left: 25px;
-`;
-
-const NavBar = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  height: 100vh;
 `;
 
 const Logo = styled.div`
@@ -37,17 +32,20 @@ const MainContent = styled.div`
 const HeaderContainer = styled.div`
   display: flex;
   align-items: center;
+  width:98%;
 `;
 
 const SearchContainer = styled.div``;
 
 const FilterContainer = styled.div`
-  margin-left: 20px;
+  margin-left: 10px;
   display: flex;
+  overflow-x:scroll;
+  padding:10px;
 `;
 
 const Main = styled.div`
-  width: 100%;
+  width: 97%;
   height: 87%;
   background-color: white;
   border-radius: 10px;
@@ -55,80 +53,103 @@ const Main = styled.div`
   padding-top: 30px;
   display: flex;
   justify-content: space-evenly;
-  flex-wrap: break;
+  flex-wrap: wrap;
 `;
 
 export default function Homepage({}) {
+  const [destinations, setDestinations] = useState([]);
+  const [search, setSearch] = useState("");
+  const [filter, setFilter] = useState([]);
+  const [province, setProvince] = useState("");
+
+  useEffect(() => {
+    axios.get(`/api/destinations`).then((res) => {
+      setDestinations(res.data);
+    });
+  }, []);
+
+  const onFilter = (search, province) => {
+    setSearch(search);
+    setProvince(province);
+    return destinations.filter((destination) => {
+      if (search && !destination.name.includes(search)) {
+        return false;
+      }
+      if (province && !destination.province_short.includes(province)) {
+        return false;
+      }
+      return true;
+    });
+  };
+
+  const destinationList = (
+    search.length > 0 || province ? filter : destinations
+  ).map((destination) => {
+    return (
+      <DestinationCard
+        title={destination.name}
+        subtitle={destination.province}
+        background={destination.photo}
+        key={destination.id}
+      />
+    );
+  });
+
+  const filterByProvinces = [
+    { label: "AB", value: "AB" },
+    { label: "BC", value: "BC" },
+    { label: "SK", value: "SK" },
+    { label: "MB", value: "MB" },
+    { label: "ON", value: "ON" },
+    { label: "QC", value: "QC" },
+    { label: "NB", value: "NB" },
+    { label: "NS", value: "NS" },
+    { label: "PE", value: "PE" },
+    { label: "NL", value: "NL" },
+    { label: "NT", value: "NT" },
+    { label: "YT", value: "YT" },
+    { label: "NU", value: "NU" },
+    { label: "All", value: "" },
+  ];
+
+  const filterProvinceButtons = filterByProvinces.map((item) => {
+    return (
+      <FilterButton
+        onClick={() => {
+          setFilter(onFilter(search, item.value));
+        }}
+        isActive={item.value === province}
+        {...item}
+        key={item.label}
+      />
+    );
+  });
+
   return (
     <MainContainer>
+
       <NavContainer>
         <Logo>
           <div>LOGO</div>
         </Logo>
-        <NavBar>
-          <Nav
-            icon={faHouse}
-            iconColor="#3E8F7D"
-            label="Dashboard"
-            fontWeight="bold"
-            textColor="#3E8F7D"
-          />
-          <Nav
-            icon={faMap}
-            iconColor="#3E8F7D"
-            label="Dashboard"
-            fontWeight="bold"
-            textColor="#3E8F7D"
-          />
-          <Nav
-            icon={faHeart}
-            iconColor="#3E8F7D"
-            label="Dashboard"
-            fontWeight="bold"
-            textColor="#3E8F7D"
-          />
-        </NavBar>
+        <NavBar />
       </NavContainer>
 
       <MainContent>
+
         <HeaderContainer>
           <SearchContainer>
-            <SearchBar />
+            <SearchBar
+              search={search}
+              setSearch={(search) => {
+                setFilter(onFilter(search, province));
+              }}
+            />
           </SearchContainer>
-          <FilterContainer>
-            <FilterButton type="filterActive" label="AB" />
-            <FilterButton type="notActive" label="BC" />
-          </FilterContainer>
+          <FilterContainer>{filterProvinceButtons}</FilterContainer>
         </HeaderContainer>
 
-        <Main>
-          <DestinationCard
-            title="Whistler Village"
-            subtitle="Whistler, B.C."
-            background="/whistler.jpg"
-          />
-          <DestinationCard
-            title="Whistler Village"
-            subtitle="Whistler, B.C."
-            background="/whistler.jpg"
-          />
-          <DestinationCard
-            title="Whistler Village"
-            subtitle="Whistler, B.C."
-            background="/whistler.jpg"
-          />
-          <DestinationCard
-            title="Whistler Village"
-            subtitle="Whistler, B.C."
-            background="/whistler.jpg"
-          />
-
-          <DestinationCard
-            title="Whistler Village"
-            subtitle="Whistler, B.C."
-            background="/whistler.jpg"
-          />
-        </Main>
+        <Main>{destinationList}</Main>
       </MainContent>
     </MainContainer>
   );

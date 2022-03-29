@@ -174,3 +174,20 @@ const getAllProvinces = function() {
 }
 
 exports.getAllProvinces = getAllProvinces;
+
+const getPackingListByDestinationId = function(destinationId) {
+  return db
+    .query(`SELECT *
+            FROM things_to_bring
+            WHERE destination_id = $1;`, [destinationId])
+    .then((result) => {
+      return result.rows.map((result) => {
+        return result.thing;
+      });
+    })
+    .catch((err) => {
+      console.log('Error retrieving all provinces', err.message);
+    });
+}
+
+exports.getPackingListByDestinationId = getPackingListByDestinationId;

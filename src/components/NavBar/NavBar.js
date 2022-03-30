@@ -18,7 +18,7 @@ export default function NavBar({}) {
       <Nav
         icon={faHouse}
         iconColor="#3E8F7D"
-        label="Dashboard"
+        label="Home"
         fontWeight="bold"
         textColor="#3E8F7D"
         to="/"
@@ -26,7 +26,7 @@ export default function NavBar({}) {
       <Nav
         icon={faMap}
         iconColor="#3E8F7D"
-        label="Dashboard"
+        label="Random"
         fontWeight="bold"
         textColor="#3E8F7D"
         to="/random"
@@ -34,7 +34,7 @@ export default function NavBar({}) {
       <Nav
         icon={faHeart}
         iconColor="#3E8F7D"
-        label="Dashboard"
+        label="Favorites"
         fontWeight="bold"
         textColor="#3E8F7D"
         to="/favorites"

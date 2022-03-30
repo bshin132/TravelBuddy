@@ -45,9 +45,9 @@ const Subtitle = styled.p`
   padding-left: 2px;
 `;
 
-export default function DestinationCard({ background, title, subtitle }) {
+export default function DestinationCard({ background, title, subtitle, onClick }) {
   return (
-    <Container background={background} className="card">
+    <Container background={background} className="card" onClick={onClick}>
       <FontAwesomeIcon icon={faHeart} className="heart-icon" />
       <HeaderContainer>
         <Title>{title}</Title>

@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import Button from "../../components/Button/Button";
 import NavBar from "../../components/NavBar/NavBar";
 import ImageSection from "../../components/ImageSection/ImageSection";
@@ -9,7 +9,7 @@ import Map from "../../components/Map/Map";
 import styled from "styled-components";
 import Logo from "../../components/Logo/Logo";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const MainContainer = styled.div`
   display: flex;
@@ -66,6 +66,14 @@ const BringCont = styled.div`
 `;
 
 export default function Details({}) {
+  const [destination, setDestination] = useState({ photos: [] });
+  const params = useParams();
+  useEffect(() => {
+    axios.get(`/api/destinations/${params.id}/details`).then((res) => {
+      setDestination(res.data);
+    });
+  }, []);
+
   return (
     <MainContainer>
       <NavContainer>
@@ -82,22 +90,15 @@ export default function Details({}) {
 
         <Main>
           <ImageHeader
-            background="/whistler.jpg"
-            destination="Whistler"
-            province="British Columbia"
+            province={destination.province}
+            name={destination.name}
+            image={destination.photos[0]}
           />
 
-          <DescriptionContainer>
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
-            ever since the 1500s, when an unknown printer took a galley of type
-            and scrambled it to make a type specimen book. It has survived not
-            only five centuries, but also the leap into electronic typesetting,
-            remaining essentially unchanged.{" "}
-          </DescriptionContainer>
+          <DescriptionContainer>{destination.description}</DescriptionContainer>
 
           <ImageContainer>
-            <ImageSection />
+            <ImageSection photos={destination.photos}></ImageSection>
           </ImageContainer>
 
           <MapCont>

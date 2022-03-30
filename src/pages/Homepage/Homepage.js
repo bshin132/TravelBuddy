@@ -6,6 +6,7 @@ import FilterButton from "../../components/FilterButton/FilterButton";
 import styled from "styled-components";
 import axios from "axios";
 import Logo from "../../components/Logo/Logo";
+import { useNavigate } from "react-router-dom";
 
 const MainContainer = styled.div`
   display: flex;
@@ -26,7 +27,7 @@ const MainContent = styled.div`
 const HeaderContainer = styled.div`
   display: flex;
   align-items: center;
-  width:98%;
+  width: 98%;
 `;
 
 const SearchContainer = styled.div``;
@@ -34,8 +35,8 @@ const SearchContainer = styled.div``;
 const FilterContainer = styled.div`
   margin-left: 10px;
   display: flex;
-  overflow-x:scroll;
-  padding:10px;
+  overflow-x: scroll;
+  padding: 10px;
 `;
 
 const Main = styled.div`
@@ -55,6 +56,7 @@ export default function Homepage({}) {
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState([]);
   const [province, setProvince] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios.get(`/api/destinations/`).then((res) => {
@@ -85,6 +87,7 @@ export default function Homepage({}) {
         subtitle={destination.province}
         background={destination.photo}
         key={destination.id}
+        onClick={() => navigate(`/details/${destination.id}`)}
       />
     );
   });
@@ -121,14 +124,12 @@ export default function Homepage({}) {
 
   return (
     <MainContainer>
-
       <NavContainer>
         <Logo />
         <NavBar />
       </NavContainer>
 
       <MainContent>
-
         <HeaderContainer>
           <SearchContainer>
             <SearchBar

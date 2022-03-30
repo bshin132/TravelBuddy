@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import NavBar from "../../components/NavBar/NavBar";
 import RandomCard from "../../components/RandomCard/RandomCard";
 import styled from "styled-components";
-import axios from "axios";
 
 const MainContainer = styled.div`
   display: flex;

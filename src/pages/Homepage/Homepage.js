@@ -7,6 +7,7 @@ import styled from "styled-components";
 import axios from "axios";
 import Logo from "../../components/Logo/Logo";
 import { useCookies } from "react-cookie";
+import { useNavigate } from "react-router-dom";
 
 const MainContainer = styled.div`
   display: flex;

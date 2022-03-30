@@ -66,11 +66,24 @@ const BringCont = styled.div`
 `;
 
 export default function Details({}) {
-  const [destination, setDestination] = useState({ photos: [] });
+  const [destination, setDestination] = useState({
+    nearby_places: [],
+    location: { lat: 43.651, lng: -79.347 },
+    photos: [],
+    packing_list: [],
+  });
+  const [stop, setStop] = useState({
+    num: 1,
+    place: {},
+    rating: 1,
+    address: "",
+  });
+
   const params = useParams();
   useEffect(() => {
     axios.get(`/api/destinations/${params.id}/details`).then((res) => {
       setDestination(res.data);
+      setStop({ num: 1, place: res.data.nearby_places[0] });
     });
   }, []);
 
@@ -102,13 +115,12 @@ export default function Details({}) {
           </ImageContainer>
 
           <MapCont>
-            <Map />
+            <Map onMarkerClick={setStop} destination={destination} />
             <Stop
-              number="1"
-              stop="Stop 1"
-              description="Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
-            ever since the 1500s."
+              number={stop.num}
+              stop={stop.place.name}
+              rating={stop.place.rating}
+              description={stop.place.address}
             />
           </MapCont>
 

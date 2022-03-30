@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ItemBanner from "../ItemBanner/ItemBanner";
 import styled from "styled-components";
+import axios from "axios";
+import { useParams } from "react-router-dom";
 import { faCamera } from "@fortawesome/free-solid-svg-icons";
 
 const Container = styled.div`
@@ -14,8 +16,8 @@ const Container = styled.div`
   font-size: 18px;
 `;
 
-const Header = styled.h3`
-  width: 140px;
+const Header = styled.h2`
+  width: 180px;
   text-align: left;
   padding-left: 45px;
 `;
@@ -28,30 +30,25 @@ const ItemCont = styled.div`
   font-size: 24px;
 `;
 
-const Left = styled.div`
+// const Left = styled.div``;
 
-`;
+// const Right = styled.div``;
 
-const Right = styled.div`
+export default function InfoBanner({destination}) {
 
-`;
+  // const itemList = destination.packing_list.map((name) => {
+  //   return (
+  //     <ItemBanner
+  //       key={name.id}
+  //       title={name.packing_list}
+  //     />
+  //   );
+  // });
 
-export default function InfoBanner({}) {
   return (
     <Container>
       <Header>What You'll Need to Bring</Header>
-      <ItemCont>
-        <Left>
-          <ItemBanner icon={faCamera} title="Camera" />
-          <ItemBanner icon={faCamera} title="Camera" />
-          <ItemBanner icon={faCamera} title="Camera" />
-        </Left>
-        <Right>
-          <ItemBanner icon={faCamera} title="Camera" />
-          <ItemBanner icon={faCamera} title="Camera" />
-          <ItemBanner icon={faCamera} title="Camera" />
-        </Right>
-      </ItemCont>
+      <ItemCont></ItemCont>
     </Container>
   );
 }

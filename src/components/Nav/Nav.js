@@ -25,7 +25,7 @@ export default function Nav({
 }) {
   return (
     <Container>
-      <Link to={to}>
+      <Link to={to} style={{ textDecoration: "none" }}>
         <FontAwesomeIcon icon={icon} color={iconColor} />
         <Label style={{ color: textColor, fontWeight: fontWeight }}>
           {label}

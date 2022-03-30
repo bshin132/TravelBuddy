@@ -48,7 +48,7 @@ const Subtitle = styled.p`
 export default function DestinationCard({ background, title, subtitle, onClick }) {
   return (
     <Container background={background} className="card" onClick={onClick}>
-      <FontAwesomeIcon icon={faHeart} className="heart-icon" />
+      <FontAwesomeIcon icon={faHeart} className="heart-icon" style={{color: "#FFF"}} />
       <HeaderContainer>
         <Title>{title}</Title>
         <Subtitle>

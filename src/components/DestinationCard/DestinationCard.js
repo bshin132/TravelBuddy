@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import "./DestinationCard.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationDot, faHeart } from "@fortawesome/free-solid-svg-icons";
+import { UNSAFE_NavigationContext } from "react-router-dom";
+import axios from "axios";
+import { useCookies } from "react-cookie";
 
 const Container = styled.div`
   display: flex;
@@ -45,10 +48,33 @@ const Subtitle = styled.p`
   padding-left: 2px;
 `;
 
-export default function DestinationCard({ background, title, subtitle, onClick }) {
+export default function DestinationCard({ background, title, subtitle, favorited, id, favSwitch, setFavSwitch }) {
+  const [cookies, setCookie] = useCookies(["user_id"]);
+
+  const unFav = function() {
+    axios.delete(`/api/user/${cookies.user_id}/favorites/${id}/`).then((res) => {
+      if (favSwitch) {
+        setFavSwitch(false);
+      } else {
+        setFavSwitch(true);
+      }
+    });
+  }
+
+  const favOn = function() {
+    axios.post(`/api/user/${cookies.user_id}/favorites/${id}/`).then((res) => {
+      if (favSwitch) {
+        setFavSwitch(false);
+      } else {
+        setFavSwitch(true);
+      }
+    });
+  }
+
   return (
-    <Container background={background} className="card" onClick={onClick}>
-      <FontAwesomeIcon icon={faHeart} className="heart-icon" style={{color: "#FFF"}} />
+    <Container background={background} className="card">
+      {favorited && <FontAwesomeIcon icon={faHeart} className="heart-icon" style={{color:"red"}} onClick={unFav}/>}
+      {!favorited && <FontAwesomeIcon icon={faHeart} className="heart-icon" onClick={favOn}/>}
       <HeaderContainer>
         <Title>{title}</Title>
         <Subtitle>

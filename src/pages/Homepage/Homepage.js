@@ -6,6 +6,7 @@ import FilterButton from "../../components/FilterButton/FilterButton";
 import styled from "styled-components";
 import axios from "axios";
 import Logo from "../../components/Logo/Logo";
+import { useCookies } from "react-cookie";
 
 const MainContainer = styled.div`
   display: flex;
@@ -52,15 +53,22 @@ const Main = styled.div`
 
 export default function Homepage({}) {
   const [destinations, setDestinations] = useState([]);
+  const [favorites, setFavorites] = useState([]);
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState([]);
   const [province, setProvince] = useState("");
+  const [cookies, setCookie] = useCookies(["user_id"]);
+  const [favSwitch, setFavSwitch] = useState(false);
+  
 
   useEffect(() => {
     axios.get(`/api/destinations/`).then((res) => {
       setDestinations(res.data);
+      axios.get(`/api/user/${cookies.user_id}/favorites`).then((resp) => {
+        setFavorites(resp.data);
+      });
     });
-  }, []);
+  }, [favSwitch]);
 
   const onFilter = (search, province) => {
     setSearch(search);
@@ -79,12 +87,17 @@ export default function Homepage({}) {
   const destinationList = (
     search.length > 0 || province ? filter : destinations
   ).map((destination) => {
+    const favorited = (favorites.find(dest => dest.id === destination.id) ? true : false);
     return (
       <DestinationCard
         title={destination.name}
         subtitle={destination.province}
         background={destination.photo}
         key={destination.id}
+        id={destination.id}
+        favorited={favorited}
+        favSwitch={favSwitch}
+        setFavSwitch={setFavSwitch}
       />
     );
   });

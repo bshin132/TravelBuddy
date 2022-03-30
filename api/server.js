@@ -164,7 +164,7 @@ app.get("/api/destinations", (req, res) => {
         const photos = response.data.result.photos;
         let photo_reference;
         for (const photoObj of photos) {
-          if (photoObj.height >= maxheight && photoObj.height/photoObj.width <= 4/3) {
+          if (photoObj.height >= maxheight && photoObj.height <= photoObj.width) {
             photo_reference = photoObj.photo_reference;
             break;
           }
@@ -191,17 +191,37 @@ app.get("/api/destinations", (req, res) => {
 app.get("/api/destinations/:id/details", (req, res) => {
   let details = {};
   const maxheight = 300;
+  const headerMaxWidth = 1200;
   const radius = 50000;
   database.getDestinationById(req.params.id).then((results) => {
     axios.get(`https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&exsentences=5&redirects=1&titles=${results.wiki_name}`).then((respo) => {
       const description = respo.data.query.pages[Object.keys(respo.data.query.pages)[0]].extract.replace(/\(listen\)/g,'').replace(/\(\)/g,'').replace(/\(\s\)/g,'').replace(/\(pronounced\s\)/g, '').replace(/\(\s/g, '(').replace(/\s\)/g, ')').replace(/\(;\s/g, '(');
       axios.get(`https://maps.googleapis.com/maps/api/place/details/json?place_id=${results.google_place_id}&fields=geometry,photos,url,website&key=${process.env.MAPS_API_KEY}`).then((resp) => {
         const location = resp.data.result.geometry.location;
-        const getPhotos = resp.data.result.photos.map((photoObj) => {
+        let headerPhoto = resp.data.result.photos[0];
+        for (const po of resp.data.result.photos) {
+          if (po.width >= headerMaxWidth && po.height <= po.width) {
+            headerPhoto = po;
+            break;
+          }
+        }
+        let processedPhotos = [headerPhoto];
+        for (const po of resp.data.result.photos) {
+          if (po.photo_reference !== headerPhoto.photo_reference) {
+            processedPhotos.push(po);
+          }
+        }
+        const getPhotos = processedPhotos.map((photoObj, ind) => {
           const photo_reference = photoObj.photo_reference;
-          return axios.get(`https://maps.googleapis.com/maps/api/place/photo?photo_reference=${photo_reference}&maxheight=${maxheight}&key=${process.env.MAPS_API_KEY}`).then((res) => {
-            return res.request.res.responseUrl;
-          });
+          if (ind === 0) {
+            return axios.get(`https://maps.googleapis.com/maps/api/place/photo?photo_reference=${photo_reference}&maxwidth=${headerMaxWidth}&key=${process.env.MAPS_API_KEY}`).then((res) => {
+              return res.request.res.responseUrl;
+            });
+          } else {
+            return axios.get(`https://maps.googleapis.com/maps/api/place/photo?photo_reference=${photo_reference}&maxheight=${maxheight}&key=${process.env.MAPS_API_KEY}`).then((res) => {
+              return res.request.res.responseUrl;
+            });
+          }
         });
         Promise.all(getPhotos).then((response) => {
           axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${location.lat},${location.lng}&type=tourist_attraction&radius=${radius}&key=${process.env.MAPS_API_KEY}`).then((nearbySearch) => {

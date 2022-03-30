@@ -1,8 +1,13 @@
 .heart-icon {
+  font-size: 20px;
   position: relative;
   margin-bottom: 210px;
   margin-left: 150px;
   cursor: pointer;
+  color: white;
+  &:hover {
+    opacity: 50%;
+  };
 }
 
 .card {

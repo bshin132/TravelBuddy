@@ -37,12 +37,13 @@ const Main = styled.div`
 export default function Favorites({}) {
   const [destinations, setDestinations] = useState([]);
   const [cookies, setCookie] = useCookies(["user_id"]);
+  const [favSwitch, setFavSwitch] = useState(false);
 
   useEffect(() => {
     axios.get(`/api/user/${cookies.user_id}/favorites`).then((res) => {
       setDestinations(res.data);
     });
-  }, []);
+  }, [favSwitch]);
 
   const destinationList = destinations.map((destination) => {
     return (
@@ -51,6 +52,10 @@ export default function Favorites({}) {
         subtitle={destination.province}
         background={destination.photo}
         key={destination.id}
+        id={destination.id}
+        favorited={true}
+        favSwitch={favSwitch}
+        setFavSwitch={setFavSwitch}
       />
     );
   });

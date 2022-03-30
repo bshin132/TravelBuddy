@@ -28,10 +28,10 @@ const Sublabel = styled.h4`
   margin: 0;
 `;
 
-export default function ImageHeader({ background, destination, province }) {
+export default function ImageHeader({image, province, name}) {
   return (
-    <Container background={background}>
-      <Label>{destination}</Label>
+    <Container background={image}>
+      <Label>{name}</Label>
       <Sublabel>{province}</Sublabel>
     </Container>
   );

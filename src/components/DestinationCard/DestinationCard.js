@@ -52,7 +52,6 @@ export default function DestinationCard({ background, title, subtitle, favorited
   const [cookies, setCookie] = useCookies(["user_id"]);
 
   const unFav = function() {
-    alert("Clicked!");
     axios.delete(`/api/user/${cookies.user_id}/favorites/${id}/`).then((res) => {
       if (favSwitch) {
         setFavSwitch(false);
@@ -63,7 +62,6 @@ export default function DestinationCard({ background, title, subtitle, favorited
   }
 
   const favOn = function() {
-    alert("Clicked!");
     axios.post(`/api/user/${cookies.user_id}/favorites/${id}/`).then((res) => {
       if (favSwitch) {
         setFavSwitch(false);

@@ -27,7 +27,7 @@ const MainContent = styled.div`
 const HeaderContainer = styled.div`
   display: flex;
   align-items: center;
-  width:98%;
+  width: 98%;
 `;
 
 const SearchContainer = styled.div``;
@@ -35,8 +35,8 @@ const SearchContainer = styled.div``;
 const FilterContainer = styled.div`
   margin-left: 10px;
   display: flex;
-  overflow-x:scroll;
-  padding:10px;
+  overflow-x: scroll;
+  padding: 10px;
 `;
 
 const Main = styled.div`
@@ -59,7 +59,7 @@ export default function Homepage({}) {
   const [province, setProvince] = useState("");
   const [cookies, setCookie] = useCookies(["user_id"]);
   const [favSwitch, setFavSwitch] = useState(false);
-  
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios.get(`/api/destinations/`).then((res) => {
@@ -98,6 +98,7 @@ export default function Homepage({}) {
         favorited={favorited}
         favSwitch={favSwitch}
         setFavSwitch={setFavSwitch}
+        onClick={() => navigate(`/details/${destination.id}`)}
       />
     );
   });
@@ -134,14 +135,12 @@ export default function Homepage({}) {
 
   return (
     <MainContainer>
-
       <NavContainer>
         <Logo />
         <NavBar />
       </NavContainer>
 
       <MainContent>
-
         <HeaderContainer>
           <SearchContainer>
             <SearchBar

@@ -1,3 +1,5 @@
+import { faStar } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { editableInputTypes } from "@testing-library/user-event/dist/utils";
 import React from "react";
 import styled from "styled-components";
@@ -19,7 +21,7 @@ const Container = styled.div`
 `;
 
 const Circle = styled.div`
-  width: 77px;
+  width: 70px;
   height: 70px;
   border-radius: 50px;
   background-color: #ffffff;
@@ -47,14 +49,16 @@ const Subheader = styled.p`
   font-size:14px;
 `;
 
-export default function Stop({ stop, description, number }) {
+export default function Stop({ stop, description, num, rating }) {
   return (
     <Footer>
+      <h2>Nearby Places to Visit</h2>
       <Container>
-        <Circle>{number}</Circle>
+        <Circle>{num}</Circle>
         <HeaderContainer>
           <Header>{stop}</Header>
           <Subheader>{description}</Subheader>
+          <Subheader><FontAwesomeIcon icon={faStar}/>{rating}</Subheader>
         </HeaderContainer>
       </Container>
     </Footer>

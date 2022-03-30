@@ -1,32 +1,69 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
+import axios from "axios";
+import {
+  GoogleMap,
+  useJsApiLoader,
+  Marker,
+  useLoadScript,
+} from "@react-google-maps/api";
+import mapStyles from "../../mapStyles";
 
 const Container = styled.div`
   display: flex;
-  height: 250px;
+  height: 300px;
   border-radius: 7px 7px 0 0;
   border: solid 2px #3e8f7d;
   width: 70vw;
 `;
 
-const containerStyle = {
-  width: "400px",
-  height: "400px",
+const mapContainerStyle = {
+  width: "70vw",
+  height: "300px",
+  borderRadius: "6px 6px 0 0",
 };
 
-const center = {
-  lat: -3.745,
-  lng: -38.523,
+const options = {
+  disableDefaultUI: true,
+  zoomControl: true,
+  styles: mapStyles,
 };
 
-export default function Map({}) {
+export default function Map({ destination, onMarkerClick }) {
+  // useEffect(() => {
+  //   axios.get(`/api/destinations/${params.id}/details`).then((res) => {
+  //     setDestination(res.data);
+  //     setStop(res.data.nearby_places[0]);
+  //   });
+  // }, []);
+
+  const stopsList = destination.nearby_places.map((place, index) => {
+    return (
+      <Marker
+        key={place.place_id}
+        position={{
+          lat: place.location.lat,
+          lng: place.location.lng,
+        }}
+        onClick={() => {
+          onMarkerClick({ num: index + 1, place });
+        }}
+      />
+    );
+  });
+
+  const center = {
+    lat: destination.location.lat,
+    lng: destination.location.lng,
+  };
+
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: "AIzaSyCRWplgDVwEMAhwPNe7E3w0F2iP9Tsl8Pw",
   });
 
-  const [map, setMap] = React.useState(null);
+  const [map, setMap] = useState(null);
 
   const onLoad = React.useCallback(function callback(map) {
     const bounds = new window.google.maps.LatLngBounds();
@@ -42,12 +79,16 @@ export default function Map({}) {
     <Container>
       {isLoaded ? (
         <GoogleMap
-          mapContainerStyle={containerStyle}
+          mapContainerStyle={mapContainerStyle}
           center={center}
-          zoom={10}
+          options={options}
+          zoom={13}
           onLoad={onLoad}
           onUnmount={onUnmount}
-        />
+        >
+          {" "}
+          {stopsList}
+        </GoogleMap>
       ) : (
         ""
       )}

@@ -7,6 +7,7 @@ import { useCookies } from "react-cookie";
 
 const MainContainer = styled.div`
   display: flex;
+  height:100vh;
 `;
 
 const NavContainer = styled.div`
@@ -22,15 +23,16 @@ const MainContent = styled.div`
 `;
 
 const Main = styled.div`
-height:400px;
+  height: 400px;
   background-color: white;
   border-radius: 10px;
+  border: 2px solid #3e8f7d;
   margin: 15px;
   display: flex;
   justify-content: space-evenly;
   flex-wrap: wrap;
   align-items: center;
-  text-align:left;
+  text-align: left;
 `;
 
 export default function Favorites({}) {

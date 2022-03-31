@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
-  width: 85vw;
+  width: -webkit-fill-available;
   height: 450px;
   border-radius: 7px;
   font-family: "Outfit", sans-serif;

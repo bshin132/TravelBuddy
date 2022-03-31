@@ -33,6 +33,7 @@ const Subtitle = styled.p`
   color: #ffffff;
   margin: 0;
   font-size: 24px;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 `;
 
 const Description = styled.p`

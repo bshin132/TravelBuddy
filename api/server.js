@@ -100,7 +100,7 @@ app.get("/api/user/:userId/favorites", (req, res) => {
 
 app.get("/api/destinations/random", (req, res) => {
   database.getRandomDestination().then((result) => {
-    const maxheight = 1080;
+    const maxheight = 1440;
     const place_id = result.google_place_id;
     axios.get(`https://maps.googleapis.com/maps/api/place/details/json?place_id=${place_id}&fields=photos&key=${process.env.MAPS_API_KEY}`).then((response) => {
       const photos = response.data.result.photos;

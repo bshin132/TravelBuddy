@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 
 const app = express();
 const port = process.env.PORT || 8001;
-const database = require('../api/database');
+const database = require('./database');
 
 const axios = require('axios');
 
@@ -161,6 +161,7 @@ app.get("/api/destinations", (req, res) => {
     const getPhotoReferences = results.map((obj) => {
       const place_id = obj.google_place_id;
       return axios.get(`https://maps.googleapis.com/maps/api/place/details/json?place_id=${place_id}&fields=photos&key=${process.env.MAPS_API_KEY}`).then((response) => {
+        console.log(response.data)
         const photos = response.data.result.photos;
         let photo_reference;
         for (const photoObj of photos) {

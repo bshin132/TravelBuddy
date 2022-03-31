@@ -68,7 +68,7 @@ export default function Map({ destination, onMarkerClick }) {
           mapContainerStyle={mapContainerStyle}
           center={center}
           options={options}
-          zoom={13}
+          zoom={15}
           onLoad={onLoad}
           onUnmount={onUnmount}
         >

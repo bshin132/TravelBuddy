@@ -19,6 +19,8 @@ const Container = styled.button`
   &:hover {
     background-color: ${(props) =>
       props.type ? theme[props.type].onHover : "#70A99C"};
+    transform: scale(1.2);
+    transition-duration: 0.4s;
   }
 `;
 

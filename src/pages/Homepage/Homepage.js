@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 
 const MainContainer = styled.div`
   display: flex;
+  height:100%;
 `;
 
 const NavContainer = styled.div`
@@ -50,6 +51,7 @@ const Main = styled.div`
   justify-content: space-evenly;
   flex-wrap: wrap;
   align-items:flex-start;
+  border: 2px solid #3e8f7d;
 `;
 
 export default function Homepage({}) {

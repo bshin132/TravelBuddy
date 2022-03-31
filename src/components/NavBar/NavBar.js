@@ -13,7 +13,6 @@ const NavContainer = styled.div`
 `;
 
 const Navs = styled.div`
-  height: 100vh;
 `;
 
 export default function NavBar({}) {

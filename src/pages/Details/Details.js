@@ -35,6 +35,7 @@ const HeaderContainer = styled.div`
 const Main = styled.div`
   width: 97%;
   height: 87%;
+  border: 2px solid #3e8f7d;
   background-color: white;
   border-radius: 10px;
   margin: 15px;

@@ -3,10 +3,15 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const Container = styled.div`
+const Container = styled.nav`
   width: 100%;
   height: 140px;
   cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  height: 120px;
 `;
 
 const Label = styled.p`
@@ -27,7 +32,9 @@ export default function Nav({
     <Container>
       <Link to={to} style={{ textDecoration: "none" }}>
         <FontAwesomeIcon icon={icon} color={iconColor} />
-        <Label style={{ color: textColor, fontWeight: fontWeight }}>
+        <Label
+          style={{ color: textColor, fontWeight: fontWeight, marginTop: 5 }}
+        >
           {label}
         </Label>
       </Link>

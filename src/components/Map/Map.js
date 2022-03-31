@@ -1,13 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import React, { useState } from "react";
 import styled from "styled-components";
-import axios from "axios";
-import {
-  GoogleMap,
-  useJsApiLoader,
-  Marker,
-  useLoadScript,
-} from "@react-google-maps/api";
+import { GoogleMap, useJsApiLoader, Marker } from "@react-google-maps/api";
 import mapStyles from "../../mapStyles";
 
 const Container = styled.div`
@@ -31,13 +24,6 @@ const options = {
 };
 
 export default function Map({ destination, onMarkerClick }) {
-  // useEffect(() => {
-  //   axios.get(`/api/destinations/${params.id}/details`).then((res) => {
-  //     setDestination(res.data);
-  //     setStop(res.data.nearby_places[0]);
-  //   });
-  // }, []);
-
   const stopsList = destination.nearby_places.map((place, index) => {
     return (
       <Marker
@@ -60,7 +46,7 @@ export default function Map({ destination, onMarkerClick }) {
 
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
-    googleMapsApiKey: "AIzaSyCRWplgDVwEMAhwPNe7E3w0F2iP9Tsl8Pw",
+    googleMapsApiKey: process.env.REACT_APP_MAPS_API_KEY,
   });
 
   const [map, setMap] = useState(null);

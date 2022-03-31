@@ -1,21 +1,21 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import "./DestinationCard.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationDot, faHeart } from "@fortawesome/free-solid-svg-icons";
-import { UNSAFE_NavigationContext } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import { useCookies } from "react-cookie";
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
   height: 300px;
   border-radius: 15px;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  position: relative;
   background-image: url(${({ background }) => background});
   cursor: pointer;
   box-shadow: 1px 15px 63px -16px rgba(0, 0, 0, 0.5);
@@ -48,20 +48,30 @@ const Subtitle = styled.p`
   padding-left: 2px;
 `;
 
-export default function DestinationCard({ background, title, subtitle, favorited, id, favSwitch, setFavSwitch }) {
+export default function DestinationCard({
+  background,
+  title,
+  subtitle,
+  favorited,
+  id,
+  favSwitch,
+  setFavSwitch,
+}) {
   const [cookies, setCookie] = useCookies(["user_id"]);
 
-  const unFav = function() {
-    axios.delete(`/api/user/${cookies.user_id}/favorites/${id}/`).then((res) => {
-      if (favSwitch) {
-        setFavSwitch(false);
-      } else {
-        setFavSwitch(true);
-      }
-    });
-  }
+  const unFav = function () {
+    axios
+      .delete(`/api/user/${cookies.user_id}/favorites/${id}/`)
+      .then((res) => {
+        if (favSwitch) {
+          setFavSwitch(false);
+        } else {
+          setFavSwitch(true);
+        }
+      });
+  };
 
-  const favOn = function() {
+  const favOn = function () {
     axios.post(`/api/user/${cookies.user_id}/favorites/${id}/`).then((res) => {
       if (favSwitch) {
         setFavSwitch(false);
@@ -69,19 +79,42 @@ export default function DestinationCard({ background, title, subtitle, favorited
         setFavSwitch(true);
       }
     });
-  }
+  };
 
   return (
     <Container background={background} className="card">
-      {favorited && <FontAwesomeIcon icon={faHeart} className="heart-icon" style={{color:"red"}} onClick={unFav}/>}
-      {!favorited && <FontAwesomeIcon icon={faHeart} className="heart-icon" onClick={favOn}/>}
-      <HeaderContainer>
-        <Title>{title}</Title>
-        <Subtitle>
-          {" "}
-          <FontAwesomeIcon icon={faLocationDot} /> {subtitle}
-        </Subtitle>
-      </HeaderContainer>
+      {favorited && (
+        <FontAwesomeIcon
+          icon={faHeart}
+          className="heart-icon"
+          style={{
+            color: "red",
+            position: "absolute",
+            top: "25px",
+            right: "15px",
+          }}
+          onClick={unFav}
+        />
+      )}
+      {!favorited && (
+        <FontAwesomeIcon
+          icon={faHeart}
+          className="heart-icon"
+          onClick={favOn}
+        />
+      )}
+      <Link
+        to={`/details/${id}`}
+        style={{ textDecoration: "none", position: "absolute", bottom: "0" }}
+      >
+        <HeaderContainer>
+          <Title>{title}</Title>
+          <Subtitle>
+            {" "}
+            <FontAwesomeIcon icon={faLocationDot} /> {subtitle}
+          </Subtitle>
+        </HeaderContainer>
+      </Link>
     </Container>
   );
 }

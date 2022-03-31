@@ -6,6 +6,9 @@ import Random from "./pages/Random/Random";
 import Favorites from "./pages/Favorites/Favorites";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+const {REACT_APP_MAPS_API_KEY} = process.env;
+console.log(REACT_APP_MAPS_API_KEY);
+
 function App() {
   return (
     <div className="App">

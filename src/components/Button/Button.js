@@ -11,6 +11,7 @@ const Container = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
+  font-family: "Outfit", sans-serif;
   border: ${(props) => (props.type ? theme[props.type].borderStyle : "none")};
   border-radius: 7px;
   cursor: pointer;

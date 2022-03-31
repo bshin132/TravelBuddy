@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import Logo from "../Logo/Logo";
 import Nav from "../Nav/Nav";
 import { faMap, faHouse, faHeart } from "@fortawesome/free-solid-svg-icons";
 
@@ -9,36 +9,43 @@ const NavContainer = styled.div`
   flex-direction: column;
   align-items: center;
   padding-left: 15px;
-  margin-top:150px;
+  margin-top: 180px;
+`;
+
+const Navs = styled.div`
+  height: 100vh;
 `;
 
 export default function NavBar({}) {
   return (
     <NavContainer>
-      <Nav
-        icon={faHouse}
-        iconColor="#3E8F7D"
-        label="Home"
-        fontWeight="bold"
-        textColor="#3E8F7D"
-        to="/"
-      />
-      <Nav
-        icon={faMap}
-        iconColor="#3E8F7D"
-        label="Random"
-        fontWeight="bold"
-        textColor="#3E8F7D"
-        to="/random"
-      />
-      <Nav
-        icon={faHeart}
-        iconColor="#3E8F7D"
-        label="Favorites"
-        fontWeight="bold"
-        textColor="#3E8F7D"
-        to="/favorites"
-      />
+      <Logo />
+      <Navs>
+        <Nav
+          icon={faHouse}
+          iconColor="#3E8F7D"
+          label="Home"
+          fontWeight="bold"
+          textColor="#3E8F7D"
+          to="/"
+        />
+        <Nav
+          icon={faMap}
+          iconColor="#3E8F7D"
+          label="Random"
+          fontWeight="bold"
+          textColor="#3E8F7D"
+          to="/random"
+        />
+        <Nav
+          icon={faHeart}
+          iconColor="#3E8F7D"
+          label="Favorites"
+          fontWeight="bold"
+          textColor="#3E8F7D"
+          to="/favorites"
+        />
+      </Navs>
     </NavContainer>
   );
 }

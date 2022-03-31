@@ -7,6 +7,12 @@ const Container = styled.div`
   height: 60px;
   width: 60px;
   background-image: url(${logo});
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position:absolute;
+  top:20px; 
+  left:40px;
 `;
 
 export default function Logo() {

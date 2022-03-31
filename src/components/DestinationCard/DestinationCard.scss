@@ -1,10 +1,12 @@
 .heart-icon {
   font-size: 20px;
-  position: relative;
   margin-bottom: 210px;
   margin-left: 150px;
   cursor: pointer;
   color: white;
+  position: absolute;
+  top: 15px;
+  right: 15px;
   &:hover {
     opacity: 50%;
   };

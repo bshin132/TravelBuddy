@@ -18,6 +18,7 @@ const Input = styled.input`
   font-size: 12px;
   color: #8D8EA6;
   padding-left:30px;
+  font-family: "Outfit", sans-serif;
 `;
 
 export default function SearchBar({search, setSearch}) {

@@ -5,6 +5,7 @@ const Container = styled.div`
   width: 85vw;
   height: 450px;
   border-radius: 7px;
+  font-family: "Outfit", sans-serif;
   background-image: url(${({ background }) => background});
   background-size: cover;
   background-position: center;

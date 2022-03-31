@@ -90,8 +90,6 @@ export default function DestinationCard({
           style={{
             color: "red",
             position: "absolute",
-            top: "25px",
-            right: "15px",
           }}
           onClick={unFav}
         />

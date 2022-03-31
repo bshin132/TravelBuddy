@@ -5,7 +5,6 @@ import SearchBar from "../../components/SearchBar/SearchBar";
 import FilterButton from "../../components/FilterButton/FilterButton";
 import styled from "styled-components";
 import axios from "axios";
-import Logo from "../../components/Logo/Logo";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 
@@ -42,7 +41,7 @@ const FilterContainer = styled.div`
 
 const Main = styled.div`
   width: 97%;
-  height: 87%;
+  height: 100%;
   background-color: white;
   border-radius: 10px;
   margin: 15px;
@@ -50,6 +49,7 @@ const Main = styled.div`
   display: flex;
   justify-content: space-evenly;
   flex-wrap: wrap;
+  align-items:flex-start;
 `;
 
 export default function Homepage({}) {
@@ -105,6 +105,7 @@ export default function Homepage({}) {
   });
 
   const filterByProvinces = [
+    { label: "All", value: "" },
     { label: "AB", value: "AB" },
     { label: "BC", value: "BC" },
     { label: "SK", value: "SK" },
@@ -118,7 +119,6 @@ export default function Homepage({}) {
     { label: "NT", value: "NT" },
     { label: "YT", value: "YT" },
     { label: "NU", value: "NU" },
-    { label: "All", value: "" },
   ];
 
   const filterProvinceButtons = filterByProvinces.map((item) => {
@@ -137,7 +137,6 @@ export default function Homepage({}) {
   return (
     <MainContainer>
       <NavContainer>
-        <Logo />
         <NavBar />
       </NavContainer>
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Button from "../Button/Button";
 import "./RandomCard.scss";
@@ -17,6 +17,7 @@ const Container = styled.div`
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  margin-left: 9px;
 `;
 
 const TitleContainer = styled.div``;
@@ -25,6 +26,7 @@ const Title = styled.h1`
   color: #ffffff;
   margin: 0;
   font-size: 46px;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 `;
 
 const Subtitle = styled.p`
@@ -37,6 +39,7 @@ const Description = styled.p`
   color: #ffffff;
   font-size: 20px;
   width: 50%;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 `;
 
 export default function RandomCard() {
@@ -54,6 +57,10 @@ export default function RandomCard() {
         setDestination("ERROR");
       });
   };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <Container background={destination.photo}>

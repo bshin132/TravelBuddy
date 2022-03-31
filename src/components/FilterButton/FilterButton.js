@@ -9,6 +9,7 @@ const Container = styled.button`
     props.type ? theme[props.type].default : "#3E8F7D"};
   display: flex;
   justify-content: center;
+  font-family: "Outfit", sans-serif;
   align-items: center;
   color: ${(props) => (props.type ? theme[props.type].textColor : "#FFFFFF")};
   border: ${(props) => (props.type ? theme[props.type].borderStyle : "none")};

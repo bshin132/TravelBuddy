@@ -11,13 +11,15 @@ const Footer = styled.div`
   border: solid 2px #3e8f7d;
   width: 70vw;
   background-color: #3e8f7d;
+  align-items: center;
+  font-family: "Outfit", sans-serif;
 `;
 
 const Container = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding-left:40px;
+  margin-left: 160px;
 `;
 
 const Circle = styled.div`
@@ -25,18 +27,21 @@ const Circle = styled.div`
   height: 70px;
   border-radius: 50px;
   background-color: #ffffff;
-  display:flex;
-  justify-content:center;
-  align-items:center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   color: #3e8f7d;
-  font-weight:bold;
-  font-size:32px;
+  font-weight: bold;
+  font-size: 32px;
 `;
 
 const HeaderContainer = styled.div`
   text-align: left;
   margin-left: 10px;
-  color:#ffffff;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 `;
 
 const Header = styled.p`
@@ -46,19 +51,28 @@ const Header = styled.p`
 
 const Subheader = styled.p`
   margin: 0;
-  font-size:14px;
+  font-size: 14px;
+`;
+
+const Label = styled.h2`
+  width: 163px;
+  text-align: left;
+  padding-left: 45px;
+  color: #ffffff;
 `;
 
 export default function Stop({ stop, description, num, rating }) {
   return (
     <Footer>
-      <h2>Nearby Places to Visit</h2>
+      <Label>Nearby Places to Visit</Label>
       <Container>
         <Circle>{num}</Circle>
         <HeaderContainer>
           <Header>{stop}</Header>
           <Subheader>{description}</Subheader>
-          <Subheader><FontAwesomeIcon icon={faStar}/>{rating}</Subheader>
+          <Subheader>
+            <FontAwesomeIcon icon={faStar} /> {rating}
+          </Subheader>
         </HeaderContainer>
       </Container>
     </Footer>

@@ -3,7 +3,6 @@ import DestinationCard from "../../components/DestinationCard/DestinationCard";
 import NavBar from "../../components/NavBar/NavBar";
 import styled from "styled-components";
 import axios from "axios";
-import Logo from "../../components/Logo/Logo";
 import { useCookies } from "react-cookie";
 
 const MainContainer = styled.div`
@@ -23,15 +22,15 @@ const MainContent = styled.div`
 `;
 
 const Main = styled.div`
-  width: 97%;
-  height: 87%;
+height:400px;
   background-color: white;
   border-radius: 10px;
   margin: 15px;
-  padding-top: 30px;
   display: flex;
   justify-content: space-evenly;
   flex-wrap: wrap;
+  align-items: center;
+  text-align:left;
 `;
 
 export default function Favorites({}) {
@@ -62,9 +61,7 @@ export default function Favorites({}) {
 
   return (
     <MainContainer>
-
       <NavContainer>
-        <Logo />
         <NavBar />
       </NavContainer>
 

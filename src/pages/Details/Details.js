@@ -7,7 +7,6 @@ import InfoBanner from "../../components/InfoBanner/InfoBanner";
 import ImageHeader from "../../components/ImageHeader/ImageHeader";
 import Map from "../../components/Map/Map";
 import styled from "styled-components";
-import Logo from "../../components/Logo/Logo";
 import axios from "axios";
 import { Link, useParams } from "react-router-dom";
 
@@ -90,7 +89,6 @@ export default function Details({}) {
   return (
     <MainContainer>
       <NavContainer>
-        <Logo />
         <NavBar />
       </NavContainer>
 
@@ -117,7 +115,7 @@ export default function Details({}) {
           <MapCont>
             <Map onMarkerClick={setStop} destination={destination} />
             <Stop
-              number={stop.num}
+              num={stop.num}
               stop={stop.place.name}
               rating={stop.place.rating}
               description={stop.place.address}
@@ -125,7 +123,7 @@ export default function Details({}) {
           </MapCont>
 
           <BringCont>
-            <InfoBanner />
+            <InfoBanner destination={destination}/>
           </BringCont>
         </Main>
       </MainContent>

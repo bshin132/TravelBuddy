@@ -11,13 +11,9 @@ const NavContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  justify-content: space-evenly;
   padding-left: 25px;
 `;
 
-const Logo = styled.div`
-  padding: 20px 0 0 15px;
-`;
 
 const MainContent = styled.div`
   margin: 15px 0 0 20px;
@@ -28,9 +24,6 @@ export default function Random({}) {
   return (
     <MainContainer>
       <NavContainer>
-        <Logo>
-          <div>LOGO</div>
-        </Logo>
         <NavBar />
       </NavContainer>
 

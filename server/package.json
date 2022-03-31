@@ -1,0 +1,56 @@
+{
+  "name": "travel-buddy",
+  "version": "0.1.0",
+  "private": true,
+  "main": "api/server.js",
+  "dependencies": {
+    "axios": "^0.26.1",
+    "body-parser": "^1.19.1",
+    "chalk": "^2.4.2",
+    "dotenv": "^2.0.0",
+    "express": "^4.17.3",
+    "fs": "0.0.1-security",
+    "i": "^0.3.7",
+    "pg": "^8.7.3"
+  },
+  "scripts": {
+    "db:reset": "node bin/resetdb.js",
+    "api": "node api/server.js"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ],
+    "overrides": [
+      {
+        "files": [
+          "**/*.stories.*"
+        ],
+        "rules": {
+          "import/no-anonymous-default-export": "off"
+        }
+      },
+      {
+        "files": [
+          "**/*.stories.*"
+        ],
+        "rules": {
+          "import/no-anonymous-default-export": "off"
+        }
+      }
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
